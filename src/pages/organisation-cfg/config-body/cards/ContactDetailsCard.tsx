@@ -1,6 +1,7 @@
 import { Card } from 'antd';
 import { useContext } from 'react';
 import { ConfigContext } from '../../../../ConfigContext';
+import css from '../../organisation-configuration.module.css';
 
 const ContactDetailsCard = () => {
   const { config, updateConfig } = useContext(ConfigContext);
@@ -18,6 +19,7 @@ const ContactDetailsCard = () => {
 
   return (
     <Card title='Contact Details'>
+      <div className={css['inputs']}>
       <input
         type='text'
         name='emailAddress'
@@ -39,6 +41,7 @@ const ContactDetailsCard = () => {
         onChange={handleInputChange}
         placeholder='Website'
       />
+      </div>
     </Card>
   );
 };

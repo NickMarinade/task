@@ -1,6 +1,7 @@
 import { Card } from 'antd';
 import { useContext } from 'react';
 import { ConfigContext } from '../../../../ConfigContext';
+import css from '../../organisation-configuration.module.css';
 
 const OrganizationDetailsCard = () => {
   const { config, updateConfig } = useContext(ConfigContext);
@@ -16,15 +17,16 @@ const OrganizationDetailsCard = () => {
 
   return (
     <Card title='Organization Details'>
-      <label>
+      <div className={css['inputs']}> 
+      <div className={css['checkboxInput']}>
+      <label>Migration Mode</label>
         <input
           type='checkbox'
           name='migrationMode'
           checked={config.migrationMode}
           onChange={handleInputChange}
         />
-        Migration Mode
-      </label>
+      </div>
       <input
         type='text'
         name='code'
@@ -60,6 +62,7 @@ const OrganizationDetailsCard = () => {
         onChange={handleInputChange}
         placeholder='Company Account Number'
       />
+      </div>
     </Card>
   );
 };

@@ -8,7 +8,7 @@ const TopSection = () => {
   const [cancelButtonDisabled, setCancelButtonDisabled] = useState(false);
 
 
-
+console.log(config);
   const handleSave = () => {
     // Perform save operation using config object
     updateConfig(config);
