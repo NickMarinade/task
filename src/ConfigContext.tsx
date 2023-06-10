@@ -10,6 +10,7 @@ export const ConfigContext = createContext<{
   updateConfig: (newConfig: OrganizationConfigType) => void;
   resetConfig: () => void;
   touched: boolean;
+  isFormValid: () => boolean; // Add the isFormValid function to the context
 }>({
   config: {
     migrationMode: false,
@@ -34,6 +35,7 @@ export const ConfigContext = createContext<{
   updateConfig: () => {},
   resetConfig: () => {},
   touched: false,
+  isFormValid: () => false, // Set a default implementation for the function
 });
 
 export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
@@ -71,8 +73,47 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
     setTouched(false);
   };
 
+  const isFormValid = () => {
+    const {
+      migrationMode,
+      code,
+      description,
+      bankAccount,
+      vatAccountNumber,
+      companyAccountNumber,
+      contactDetails,
+      address,
+    } = config;
+
+    // Perform validation checks
+    const isContactDetailsValid =
+      contactDetails.emailAddress.trim() !== '' &&
+      contactDetails.telephone.trim() !== '' &&
+      contactDetails.website.trim() !== '';
+
+    const isAddressValid =
+      address.streetName.trim() !== '' &&
+      address.streetNumber !== 0 &&
+      address.postalCode !== 0 &&
+      address.city.trim() !== '' &&
+      address.country.trim() !== '';
+
+    // Determine overall form validity
+    const isFormValid =
+      migrationMode &&
+      code.trim() !== '' &&
+      description.trim() !== '' &&
+      bankAccount.trim() !== '' &&
+      vatAccountNumber.trim() !== '' &&
+      companyAccountNumber.trim() !== '' &&
+      isContactDetailsValid &&
+      isAddressValid;
+
+    return isFormValid;
+  };
+
   return (
-    <ConfigContext.Provider value={{ config, updateConfig, resetConfig, touched }}>
+    <ConfigContext.Provider value={{ config, updateConfig, resetConfig, touched, isFormValid }}>
       {children}
     </ConfigContext.Provider>
   );
