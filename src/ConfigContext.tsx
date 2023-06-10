@@ -84,7 +84,8 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
     if (fieldName === 'emailAddress') {
       return config.contactDetails.emailAddress.trim() !== '';
     } else if (fieldName === 'telephone') {
-      return config.contactDetails.telephone.trim() !== '';
+      const isValid = config.contactDetails.telephone.trim().length > 6 && config.contactDetails.telephone.trim().length <= 11;
+      return isValid;
     } else if (fieldName === 'website') {
       return config.contactDetails.website.trim() !== '';
     } else if (fieldName === 'streetName') {

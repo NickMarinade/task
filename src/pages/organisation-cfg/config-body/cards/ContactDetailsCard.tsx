@@ -36,6 +36,9 @@ const ContactDetailsCard = () => {
         placeholder='Telephone'
         className={!isFieldValid('telephone') ? css.invalidInput : ''}
       />
+      {!isFieldValid('telephone') && (
+          <p>Telephone number is not validated</p>
+        )}
       <input
         type='text'
         name='website'
