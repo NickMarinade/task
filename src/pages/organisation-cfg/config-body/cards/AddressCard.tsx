@@ -4,7 +4,7 @@ import { ConfigContext } from '../../../../ConfigContext';
 import css from '../../organisation-configuration.module.css';
 
 const AddressCard = () => {
-  const { config, updateConfig } = useContext(ConfigContext);
+  const { config, updateConfig, isFieldValid } = useContext(ConfigContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,6 +26,7 @@ const AddressCard = () => {
         value={config.address.streetName}
         onChange={handleInputChange}
         placeholder='Street Name'
+        className={!isFieldValid('streetName') ? css.invalidInput : ''}
       />
       <input
         type='number'
@@ -33,6 +34,7 @@ const AddressCard = () => {
         value={config.address.streetNumber}
         onChange={handleInputChange}
         placeholder='Street Number'
+        className={!isFieldValid('streetNumber') ? css.invalidInput : ''}
       />
       <input
         type='number'
@@ -40,6 +42,7 @@ const AddressCard = () => {
         value={config.address.postalCode}
         onChange={handleInputChange}
         placeholder='Postal Code'
+        className={!isFieldValid('postalCode') ? css.invalidInput : ''}
       />
       <input
         type='text'
@@ -47,6 +50,7 @@ const AddressCard = () => {
         value={config.address.city}
         onChange={handleInputChange}
         placeholder='City'
+        className={!isFieldValid('city') ? css.invalidInput : ''}
       />
       <input
         type='text'
@@ -54,6 +58,7 @@ const AddressCard = () => {
         value={config.address.country}
         onChange={handleInputChange}
         placeholder='Country'
+        className={!isFieldValid('country') ? css.invalidInput : ''}
       />
       </div>
     </Card>

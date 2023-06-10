@@ -4,7 +4,7 @@ import { ConfigContext } from '../../../../ConfigContext';
 import css from '../../organisation-configuration.module.css';
 
 const OrganizationDetailsCard = () => {
-  const { config, updateConfig } = useContext(ConfigContext);
+  const { config, updateConfig, isFieldValid } = useContext(ConfigContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -33,6 +33,7 @@ const OrganizationDetailsCard = () => {
         value={config.code}
         onChange={handleInputChange}
         placeholder='Code'
+        className={!isFieldValid('code') ? css.invalidInput : ''}
       />
       <input
         type='text'
@@ -40,6 +41,7 @@ const OrganizationDetailsCard = () => {
         value={config.description}
         onChange={handleInputChange}
         placeholder='Description'
+        className={!isFieldValid('description') ? css.invalidInput : ''}
       />
       <input
         type='text'
@@ -47,6 +49,7 @@ const OrganizationDetailsCard = () => {
         value={config.bankAccount}
         onChange={handleInputChange}
         placeholder='Bank Account'
+        className={!isFieldValid('bankAccount') ? css.invalidInput : ''}
       />
       <input
         type='text'
@@ -54,6 +57,7 @@ const OrganizationDetailsCard = () => {
         value={config.vatAccountNumber}
         onChange={handleInputChange}
         placeholder='VAT Account Number'
+        className={!isFieldValid('vatAccountNumber') ? css.invalidInput : ''}
       />
       <input
         type='text'
@@ -61,6 +65,7 @@ const OrganizationDetailsCard = () => {
         value={config.companyAccountNumber}
         onChange={handleInputChange}
         placeholder='Company Account Number'
+        className={!isFieldValid('companyAccountNumber') ? css.invalidInput : ''}
       />
       </div>
     </Card>

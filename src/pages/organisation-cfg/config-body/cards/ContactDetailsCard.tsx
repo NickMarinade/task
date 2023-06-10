@@ -4,7 +4,7 @@ import { ConfigContext } from '../../../../ConfigContext';
 import css from '../../organisation-configuration.module.css';
 
 const ContactDetailsCard = () => {
-  const { config, updateConfig } = useContext(ConfigContext);
+  const { config, updateConfig, isFieldValid } = useContext(ConfigContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,6 +26,7 @@ const ContactDetailsCard = () => {
         value={config.contactDetails.emailAddress}
         onChange={handleInputChange}
         placeholder='Email Address'
+        className={!isFieldValid('emailAddress') ? css.invalidInput : ''}
       />
       <input
         type='text'
@@ -33,6 +34,7 @@ const ContactDetailsCard = () => {
         value={config.contactDetails.telephone}
         onChange={handleInputChange}
         placeholder='Telephone'
+        className={!isFieldValid('telephone') ? css.invalidInput : ''}
       />
       <input
         type='text'
@@ -40,6 +42,7 @@ const ContactDetailsCard = () => {
         value={config.contactDetails.website}
         onChange={handleInputChange}
         placeholder='Website'
+        className={!isFieldValid('website') ? css.invalidInput : ''}
       />
       </div>
     </Card>

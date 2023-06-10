@@ -46,7 +46,12 @@ input:focus {
 }
 
 .checkboxInput input {
-  width: 18px;
+  width: 15px;
+}
+
+.invalidInput {
+  border: 1px solid red;
+  box-shadow: 0 0 4px red;
 }
 
 

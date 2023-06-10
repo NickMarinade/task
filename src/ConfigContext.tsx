@@ -10,7 +10,7 @@ export const ConfigContext = createContext<{
   updateConfig: (newConfig: OrganizationConfigType) => void;
   resetConfig: () => void;
   touched: boolean;
-  isFormValid: () => boolean; // Add the isFormValid function to the context
+  isFieldValid: (fieldName: string) => boolean;
 }>({
   config: {
     migrationMode: false,
@@ -35,7 +35,7 @@ export const ConfigContext = createContext<{
   updateConfig: () => {},
   resetConfig: () => {},
   touched: false,
-  isFormValid: () => false, // Set a default implementation for the function
+  isFieldValid: () => true,
 });
 
 export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
@@ -73,47 +73,55 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
     setTouched(false);
   };
 
-  const isFormValid = () => {
-    const {
-      migrationMode,
-      code,
-      description,
-      bankAccount,
-      vatAccountNumber,
-      companyAccountNumber,
-      contactDetails,
-      address,
-    } = config;
+  const isFieldValid = (fieldName: string) => {
+    const { config } = contextValue;
+    const isTouched = touched || config[fieldName as keyof OrganizationConfigType] !== initialConfig[fieldName as keyof OrganizationConfigType];
+    
+    if (!isTouched) {
+      return true;
+    }
+    
+    if (fieldName === 'emailAddress') {
+      return config.contactDetails.emailAddress.trim() !== '';
+    } else if (fieldName === 'telephone') {
+      return config.contactDetails.telephone.trim() !== '';
+    } else if (fieldName === 'website') {
+      return config.contactDetails.website.trim() !== '';
+    } else if (fieldName === 'streetName') {
+      return config.address.streetName.trim() !== '';
+    } else if (fieldName === 'streetNumber') {
+      return config.address.streetNumber !== 0;
+    } else if (fieldName === 'postalCode') {
+      return config.address.postalCode !== 0;
+    } else if (fieldName === 'city') {
+      return config.address.city.trim() !== '';
+    } else if (fieldName === 'country') {
+      return config.address.country.trim() !== '';
+    } else if (fieldName === 'code') {
+      return config.code.trim() !== '';
+    } else if (fieldName === 'description') {
+      return config.description.trim() !== '';
+    } else if (fieldName === 'bankAccount') {
+      return config.bankAccount.trim() !== '';
+    } else if (fieldName === 'vatAccountNumber') {
+      return config.vatAccountNumber.trim() !== '';
+    } else if (fieldName === 'companyAccountNumber') {
+      return config.companyAccountNumber.trim() !== '';
+    }
 
-    // Perform validation checks
-    const isContactDetailsValid =
-      contactDetails.emailAddress.trim() !== '' &&
-      contactDetails.telephone.trim() !== '' &&
-      contactDetails.website.trim() !== '';
+    return true;
+  };
 
-    const isAddressValid =
-      address.streetName.trim() !== '' &&
-      address.streetNumber !== 0 &&
-      address.postalCode !== 0 &&
-      address.city.trim() !== '' &&
-      address.country.trim() !== '';
-
-    // Determine overall form validity
-    const isFormValid =
-      migrationMode &&
-      code.trim() !== '' &&
-      description.trim() !== '' &&
-      bankAccount.trim() !== '' &&
-      vatAccountNumber.trim() !== '' &&
-      companyAccountNumber.trim() !== '' &&
-      isContactDetailsValid &&
-      isAddressValid;
-
-    return isFormValid;
+  const contextValue = {
+    config,
+    updateConfig,
+    resetConfig,
+    touched,
+    isFieldValid,
   };
 
   return (
-    <ConfigContext.Provider value={{ config, updateConfig, resetConfig, touched, isFormValid }}>
+    <ConfigContext.Provider value={contextValue}>
       {children}
     </ConfigContext.Provider>
   );
