@@ -32,8 +32,8 @@ export const ConfigContext = createContext<{
       country: '',
     },
   },
-  updateConfig: () => {},
-  resetConfig: () => {},
+  updateConfig: () => { },
+  resetConfig: () => { },
   touched: false,
   isFieldValid: () => true,
 });
@@ -46,6 +46,7 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
     bankAccount: '',
     vatAccountNumber: '',
     companyAccountNumber: '',
+
     contactDetails: {
       emailAddress: '',
       telephone: '',
@@ -76,11 +77,11 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
   const isFieldValid = (fieldName: string) => {
     const { config } = contextValue;
     const isTouched = touched || config[fieldName as keyof OrganizationConfigType] !== initialConfig[fieldName as keyof OrganizationConfigType];
-    
+
     if (!isTouched) {
       return true;
     }
-    
+
     if (fieldName === 'emailAddress') {
       return config.contactDetails.emailAddress.trim() !== '';
     } else if (fieldName === 'telephone') {

@@ -20,6 +20,7 @@
   font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
+  align-items: start;
 }
 
 input {
@@ -43,15 +44,25 @@ input:focus {
   flex-direction: row;
   font-size: small;
   justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 14px;
 }
 
 .checkboxInput input {
   width: 15px;
+  height: 15px;
+  margin: 0;
 }
 
 .invalidInput {
   border: 1px solid red;
   box-shadow: 0 0 4px red;
+}
+
+p {
+  margin-top: auto;
+  color: red;
 }
 
 

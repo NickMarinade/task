@@ -20,33 +20,36 @@ const ContactDetailsCard = () => {
   return (
     <Card title='Contact Details'>
       <div className={css['inputs']}>
-      <input
-        type='text'
-        name='emailAddress'
-        value={config.contactDetails.emailAddress}
-        onChange={handleInputChange}
-        placeholder='Email Address'
-        className={!isFieldValid('emailAddress') ? css.invalidInput : ''}
-      />
-      <input
-        type='text'
-        name='telephone'
-        value={config.contactDetails.telephone}
-        onChange={handleInputChange}
-        placeholder='Telephone'
-        className={!isFieldValid('telephone') ? css.invalidInput : ''}
-      />
-      {!isFieldValid('telephone') && (
+        <label htmlFor="emailAddress">Email Address:</label>
+        <input
+          type='text'
+          name='emailAddress'
+          value={config.contactDetails.emailAddress}
+          onChange={handleInputChange}
+          placeholder='Email Address'
+          className={!isFieldValid('emailAddress') ? css.invalidInput : ''}
+        />
+        <label htmlFor="telephone">Telephone:</label>
+        <input
+          type='text'
+          name='telephone'
+          value={config.contactDetails.telephone}
+          onChange={handleInputChange}
+          placeholder='Telephone'
+          className={!isFieldValid('telephone') ? css.invalidInput : ''}
+        />
+        {!isFieldValid('telephone') && (
           <p>Telephone number is not validated</p>
         )}
-      <input
-        type='text'
-        name='website'
-        value={config.contactDetails.website}
-        onChange={handleInputChange}
-        placeholder='Website'
-        className={!isFieldValid('website') ? css.invalidInput : ''}
-      />
+        <label htmlFor="website">Website:</label>
+        <input
+          type='text'
+          name='website'
+          value={config.contactDetails.website}
+          onChange={handleInputChange}
+          placeholder='Website'
+          className={!isFieldValid('website') ? css.invalidInput : ''}
+        />
       </div>
     </Card>
   );

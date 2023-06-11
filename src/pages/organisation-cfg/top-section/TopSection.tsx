@@ -8,7 +8,6 @@ const TopSection = () => {
   const [cancelButtonDisabled, setCancelButtonDisabled] = useState(false);
 
   const handleSave = () => {
-    // Perform save operation using config object
     updateConfig(config);
     console.log(config);
     setSaveButtonDisabled(true);
@@ -29,7 +28,6 @@ const TopSection = () => {
       companyAccountNumber,
     } = config;
 
-    // Perform validation checks
     const isContactDetailsValid =
       isFieldValid('emailAddress') &&
       isFieldValid('telephone') &&
@@ -42,7 +40,6 @@ const TopSection = () => {
       isFieldValid('city') &&
       isFieldValid('country');
 
-    // Determine overall form validity
     const isFormValid =
       migrationMode &&
       code.trim() !== '' &&
@@ -58,7 +55,11 @@ const TopSection = () => {
 
   return (
     <Space direction='horizontal'>
-      {touched && !isFormValid() && <Alert message='Form invalid' type='error' />}
+      {touched && !isFormValid() &&
+        <Alert message='Form invalid' type='error' />}
+      {touched && isFormValid() && (
+        <Alert message='Form is valid' type='success' />
+      )}
       {touched && (
         <Button type='text' onClick={handleCancel} disabled={cancelButtonDisabled}>
           Cancel

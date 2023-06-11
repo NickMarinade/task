@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Good to know before start
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### I am using npm instead of yarn, so don't forget:
 
-## Available Scripts
+1. npm install
+2. npm run start
 
-In the project directory, you can run:
+# Breakdown of some files and components in the project
 
-### `yarn start`
+## ConfigContest.tsx:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### This file defines the ConfigProvider component and creates a context (ConfigContext) that holds the organization configuration state and functions to update and reset the configuration. It also includes a isFieldValid function to validate specific fields.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## organisation-config.ts:
 
-### `yarn test`
+### This file defines the types for the organization configuration.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## OrganisationConfiguration.tsx:
 
-### `yarn build`
+### This component represents the layout of organization configuration form. It includes a header (TopSection) and content (ConfigBody).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## TopSection.tsx:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### This component represents the top section of the organization configuration form. It displays an alert message for form validation and buttons to save or cancel the changes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+# Highlights
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Each component is defined using functional components and utilizes React hooks, such as useState and useContext, to manage state and access the configuration context.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### The ConfigProvider component wraps the App component, providing a context value that includes the config state, as well as functions to update and reset the config. This allows components nested within the ConfigProvider to access and update the config state without prop drilling.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### The ConfigContext is created using the createContext function from React, and it defines the shape of the context value. Components that need access to the config state can use the useContext hook to consume the context and access the state and functions provided.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Validation on input fields
+### In the Cards components, each input field has an onChange event handler handleInputChange that updates the config state object using the updateConfig function from the ConfigContext. The isFieldValid function from the ConfigContext is also used to determine if a field is valid or not.
 
-## Learn More
+### The className property of each input element is conditionally set based on the result of the isFieldValid function. If a field is not valid, the css.invalidInput class is applied, which presumably styles the input with visual feedback indicating an invalid state.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### This approach allows to update the config state object and validate individual input fields without rerendering the entire form or other components unrelated to the input field being edited.
