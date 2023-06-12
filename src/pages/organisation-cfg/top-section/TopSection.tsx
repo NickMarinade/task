@@ -6,12 +6,14 @@ const TopSection = () => {
   const { config, updateConfig, resetConfig, touched, isFieldValid } = useContext(ConfigContext);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
   const [cancelButtonDisabled, setCancelButtonDisabled] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleSave = () => {
     updateConfig(config);
-    console.log(config);
+    // console.log(config);
     setSaveButtonDisabled(true);
     setCancelButtonDisabled(true);
+    setShowAlert(true);
   };
 
   const handleCancel = () => {
@@ -59,6 +61,13 @@ const TopSection = () => {
         <Alert message='Form invalid' type='error' />}
       {touched && isFormValid() && (
         <Alert message='Form is valid' type='success' />
+      )}
+      {showAlert && (
+        <Alert
+          message='Form is submitted, thank you'
+          type='success'
+          onClose={() => setShowAlert(false)} 
+        />
       )}
       {touched && (
         <Button type='text' onClick={handleCancel} disabled={cancelButtonDisabled}>
